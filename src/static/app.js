@@ -474,7 +474,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to generate share URLs and handle sharing
   function shareActivity(platform, activityName, activityDetails) {
-    const formattedSchedule = formatSchedule(activityDetails);
     const shareText = `Check out ${activityName} at Mergington High School! ${activityDetails.description}`;
     const shareUrl = window.location.href;
     
@@ -490,6 +489,7 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
       case 'email':
         const subject = `Check out ${activityName} at Mergington High School`;
+        const formattedSchedule = formatSchedule(activityDetails);
         const body = `I thought you might be interested in this activity:\n\n${activityName}\n${activityDetails.description}\n\nSchedule: ${formattedSchedule}\n\nLearn more at: ${shareUrl}`;
         url = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         window.location.href = url;
@@ -555,15 +555,15 @@ document.addEventListener("DOMContentLoaded", () => {
       ${capacityIndicator}
       <div class="share-buttons">
         <span class="share-label">Share:</span>
-        <button class="share-button share-twitter tooltip" data-activity="${name}" title="Share on Twitter">
+        <button class="share-button share-twitter tooltip" data-platform="twitter" data-activity="${name}" title="Share on Twitter" aria-label="Share ${name} on Twitter">
           <span class="share-icon">🐦</span>
           <span class="tooltip-text">Share on Twitter</span>
         </button>
-        <button class="share-button share-facebook tooltip" data-activity="${name}" title="Share on Facebook">
+        <button class="share-button share-facebook tooltip" data-platform="facebook" data-activity="${name}" title="Share on Facebook" aria-label="Share ${name} on Facebook">
           <span class="share-icon">👍</span>
           <span class="tooltip-text">Share on Facebook</span>
         </button>
-        <button class="share-button share-email tooltip" data-activity="${name}" title="Share via Email">
+        <button class="share-button share-email tooltip" data-platform="email" data-activity="${name}" title="Share via Email" aria-label="Share ${name} via Email">
           <span class="share-icon">✉️</span>
           <span class="tooltip-text">Share via Email</span>
         </button>
@@ -621,8 +621,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const shareButtons = activityCard.querySelectorAll(".share-button");
     shareButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
-        const platform = button.classList.contains('share-twitter') ? 'twitter' :
-                         button.classList.contains('share-facebook') ? 'facebook' : 'email';
+        const platform = button.dataset.platform;
         shareActivity(platform, name, details);
       });
     });

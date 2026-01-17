@@ -30,6 +30,10 @@
   --error-light: #ffebee;
   --info: #0c5460;
   --info-light: #d1ecf1;
+
+  /* Social media brand colors */
+  --twitter-blue: #1da1f2;
+  --facebook-blue: #1877f2;
 }
 
 * {
@@ -276,13 +280,13 @@ section h3 {
 }
 
 .share-twitter:hover {
-  background-color: #1da1f2;
-  border-color: #1da1f2;
+  background-color: var(--twitter-blue);
+  border-color: var(--twitter-blue);
 }
 
 .share-facebook:hover {
-  background-color: #1877f2;
-  border-color: #1877f2;
+  background-color: var(--facebook-blue);
+  border-color: var(--facebook-blue);
 }
 
 .share-email:hover {
